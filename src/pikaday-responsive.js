@@ -35,7 +35,8 @@
     classes: "",
     placeholder: "Select a date",
     pikadayOptions: {},
-    dayOffset: 0
+    dayOffset: 0,
+    customInputContainer: null
   };
 
   return function(el, options) {
@@ -64,8 +65,12 @@
 
     // The original input field is made hidden. This field will contain the actual value.
     $el.attr("type", "hidden");
-    // Wrap the input in a container
-    $el.wrap("<span class='pikaday__container'></span>");
+    // Wrap the input in a container or set the container class to an already existing container
+    if(settings.customInputContainer){
+    	$(settings.customInputContainer).toggleClass('pikaday__container', true);
+    }else{
+      $el.wrap("<span class='pikaday__container'></span>");
+    }
     $container = $el.parent(".pikaday__container");
 
     // If the original input has an ID, use it to generate IDs for the generated display inputs
